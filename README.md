@@ -3,5 +3,5 @@ Kuil2 is a comprehensive hacking tool.
 
 
 - [x] Sub Directory Attack  
-- [ ] Sub Domain Attack
+- [x] Sub Domain Attack
 - [ ] Sync Port Scan
