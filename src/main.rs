@@ -5,6 +5,7 @@ mod attack;
 
 use clap::{Arg, App, Command};
 use std::error::Error;
+use std::process;
 use std::time::{Duration, SystemTime};
 use crate::attack::{SubDirectory, SubDomain};
 use crate::common::{open_dictionary_file};
@@ -54,6 +55,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let now_time = SystemTime::now();
     let target = matches.value_of("url").expect("missing attack target");
     let timeout = matches.value_of("timeout").expect("timeout needs to be a number").parse::<u64>()?;
+    println!("[+] PID {}", process::id());
     println!("[+] detection target {}", target);
     match matches.subcommand() {
         Some(("directory", sub_m)) => {

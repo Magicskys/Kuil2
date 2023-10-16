@@ -64,10 +64,12 @@ impl SubDomain {
             if line_trim != "" {
                 let target = line_trim.to_owned() + "." + &self.domain;
                 let resolver_clone = resolver.clone();
+                let success_num_clone = Arc::clone(&self.success_num);
                 let future = async move {
                     if let Ok(response) = resolver_clone.lookup_ip(target.clone()).await {
                         let ips: Vec<IpAddr> = response.iter().collect();
                         println!("\t{} {:?}", target, ips);
+                        success_num_clone.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
                     }
                 };
                 let task = tokio::spawn(future);
