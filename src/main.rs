@@ -66,10 +66,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         }
         Some(("domain", sub_m)) => {
             println!("[+] start subdomain detection");
-            let module = SubDomain::new(target.into());
             let file = open_dictionary_file(sub_m).await;
             let dns = sub_m.value_of("dns").expect("missing dns server ip address");
-            module.detection(file, dns).await;
+            let module = SubDomain::new(target.into(), dns);
+            module.detection(file).await;
         }
         _ => {
             println!("[*] start port scan");
